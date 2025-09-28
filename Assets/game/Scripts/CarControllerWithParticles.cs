@@ -13,6 +13,8 @@ public class CarControllerWithParticles : MonoBehaviour
     [Header("Engine / Brakes")]
     [SerializeField] private float engineTorque = 200f;
     [SerializeField] private float brakeTorque = 300f;
+    [SerializeField] private float reverseTorque = 50f;       // small reverse push when braking
+    [SerializeField] private float reverseSpeedLimit = -2f;   // max backward speed when braking
     [SerializeField] private float tiltTorque = 150f;
 
     [Header("Suspension")]
@@ -68,6 +70,8 @@ public class CarControllerWithParticles : MonoBehaviour
             // Drive wheels with torque
             frontWheelRB.AddTorque(-moveInput * engineTorque * Time.fixedDeltaTime, ForceMode2D.Force);
             backWheelRB.AddTorque(-moveInput * engineTorque * Time.fixedDeltaTime, ForceMode2D.Force);
+            Debug.Log("Angular Velocities: " + frontWheelRB.angularVelocity + ", " + backWheelRB.angularVelocity);
+            LimitForwardAngularVelocity();
         }
     }
 
@@ -85,11 +89,40 @@ public class CarControllerWithParticles : MonoBehaviour
         if (isBraking)
         {
             // apply opposite torque to slow wheels
-            frontWheelRB.AddTorque(Mathf.Sign(frontWheelRB.angularVelocity) * -brakeTorque * Time.fixedDeltaTime, ForceMode2D.Force);
-            backWheelRB.AddTorque(Mathf.Sign(backWheelRB.angularVelocity) * -brakeTorque * Time.fixedDeltaTime, ForceMode2D.Force);
+            // frontWheelRB.AddTorque(Mathf.Sign(frontWheelRB.angularVelocity) * -brakeTorque * Time.fixedDeltaTime, ForceMode2D.Force);
+            // backWheelRB.AddTorque(Mathf.Sign(backWheelRB.angularVelocity) * -brakeTorque * Time.fixedDeltaTime, ForceMode2D.Force);
+
+            if (frontWheelRB.angularVelocity < 0)
+            {
+                frontWheelRB.AddTorque(brakeTorque * Time.fixedDeltaTime, ForceMode2D.Force);
+                backWheelRB.AddTorque(brakeTorque * Time.fixedDeltaTime, ForceMode2D.Force);
+            }
+            else
+            {
+                frontWheelRB.AddTorque(brakeTorque * 0.3f * Time.fixedDeltaTime, ForceMode2D.Force);
+                backWheelRB.AddTorque(brakeTorque * 0.3f * Time.fixedDeltaTime, ForceMode2D.Force);
+            }
+
+            Debug.Log("Angular Velocities: " + frontWheelRB.angularVelocity + ", " + backWheelRB.angularVelocity);
+            LimitBrakingAngularVelocity();
         }
     }
 
+    float maxBrakingCarAngularVelocity = 700f;
+    float maxForwardCarAngularVelocity = 3200f;
+    void LimitBrakingAngularVelocity()
+    {
+        frontWheelRB.angularVelocity = Mathf.Clamp(frontWheelRB.angularVelocity, -maxBrakingCarAngularVelocity, maxBrakingCarAngularVelocity);
+        backWheelRB.angularVelocity = Mathf.Clamp(backWheelRB.angularVelocity, -maxBrakingCarAngularVelocity, maxBrakingCarAngularVelocity);
+        //carBody.angularVelocity = Mathf.Clamp(carBody.angularVelocity, -maxCarAngularVelocity, maxCarAngularVelocity); }
+    }
+
+    void LimitForwardAngularVelocity()
+    {
+        frontWheelRB.angularVelocity = Mathf.Clamp(frontWheelRB.angularVelocity, -maxForwardCarAngularVelocity, maxForwardCarAngularVelocity);
+        backWheelRB.angularVelocity = Mathf.Clamp(backWheelRB.angularVelocity, -maxForwardCarAngularVelocity, maxForwardCarAngularVelocity);
+        //carBody.angularVelocity = Mathf.Clamp(carBody.angularVelocity, -maxCarAngularVelocity, maxCarAngularVelocity); }
+    }
     private void HandleTireDust()
     {
         // Check slip conditions

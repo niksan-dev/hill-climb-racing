@@ -134,8 +134,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4022539562116902332}
-  - component: {fileID: 3862629958979762244}
   - component: {fileID: 3153714775195563304}
+  - component: {fileID: 3560741679225562447}
   - component: {fileID: 6997658238606491240}
   - component: {fileID: 5296413244367341605}
   m_Layer: 0
@@ -165,28 +165,6 @@ Transform:
   - {fileID: 6919157168399053966}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3862629958979762244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4204735542313684498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cda88c51e0cbce4e91928b63155aed0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tiltTorque: 300
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  carBody: {fileID: 3153714775195563304}
-  _frontWheelRB: {fileID: 4045792554979945446}
-  _backWheelRB: {fileID: 4468233363059066692}
-  _speed: 100
-  rotationSpeed: 350
-  maxAngularVelocity: 500
 --- !u!50 &3153714775195563304
 Rigidbody2D:
   serializedVersion: 5
@@ -214,6 +192,34 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3560741679225562447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4204735542313684498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226e946b5d362a548bdf12c8c4222cd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carBody: {fileID: 3153714775195563304}
+  frontWheelRB: {fileID: 4045792554979945446}
+  backWheelRB: {fileID: 4468233363059066692}
+  engineTorque: 200
+  brakeTorque: 150
+  reverseTorque: 50
+  reverseSpeedLimit: -2
+  tiltTorque: 200
+  suspensionFrequency: 3
+  suspensionDamping: 0.5
+  frontTireDust: {fileID: 0}
+  backTireDust: {fileID: 0}
+  slipThreshold: 50
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!235 &6997658238606491240
 WheelJoint2D:
   m_ObjectHideFlags: 0
@@ -232,8 +238,8 @@ WheelJoint2D:
   m_Anchor: {x: 0.81, y: -0.5050001}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_Suspension:
-    m_DampingRatio: 0.35
-    m_Frequency: 3
+    m_DampingRatio: 0.2
+    m_Frequency: 2.5
     m_Angle: 90
   m_UseMotor: 0
   m_Motor:
@@ -257,8 +263,8 @@ WheelJoint2D:
   m_Anchor: {x: -0.811, y: -0.5050001}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_Suspension:
-    m_DampingRatio: 0.35
-    m_Frequency: 3
+    m_DampingRatio: 0.2
+    m_Frequency: 2.5
     m_Angle: 90
   m_UseMotor: 0
   m_Motor:
@@ -925,7 +931,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.3050003}
-  m_ConnectedAnchor: {x: 0.022395745, y: 0.42999977}
+  m_ConnectedAnchor: {x: 0.022395745, y: 0.4299997}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
