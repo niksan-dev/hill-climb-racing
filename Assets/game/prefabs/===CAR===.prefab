@@ -220,6 +220,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  wheelRadius: 0.26
+  slipFactor: 1.2
 --- !u!235 &6997658238606491240
 WheelJoint2D:
   m_ObjectHideFlags: 0
@@ -280,7 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8707206942115624971}
   - component: {fileID: 9193853791402518183}
-  - component: {fileID: 2325844811719370283}
+  - component: {fileID: 7076380924389386961}
   m_Layer: 0
   m_Name: carBody
   m_TagString: Untagged
@@ -358,8 +360,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &2325844811719370283
-PolygonCollider2D:
+--- !u!70 &7076380924389386961
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -368,7 +370,7 @@ PolygonCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 9384c11c71ea396429db09e66e0c2c23, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -393,71 +395,8 @@ PolygonCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.53, y: 1.02}
-    newSize: {x: 2.53, y: 1.02}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.8093624, y: -0.0899736}
-      - {x: 0.90489113, y: -0.11382936}
-      - {x: 1.0055996, y: -0.16610137}
-      - {x: 1.0582337, y: -0.24718231}
-      - {x: 1.0873425, y: -0.34958366}
-      - {x: 1.082078, y: -0.46696916}
-      - {x: 1.1886611, y: -0.40290388}
-      - {x: 1.2555627, y: -0.36932844}
-      - {x: 1.2579219, y: 0.09168782}
-      - {x: 1.1949999, y: 0.12}
-      - {x: 0.9873593, y: 0.14168783}
-      - {x: 0.69331217, y: 0.20393825}
-      - {x: 0.465, y: 0.51}
-      - {x: 0.36499998, y: 0.51}
-      - {x: 0.305, y: 0.44}
-      - {x: 0.36499998, y: 0.32999998}
-      - {x: 0.295, y: 0.22}
-      - {x: -0.24499999, y: 0.22999999}
-      - {x: -0.24275668, y: 0.23045728}
-      - {x: -0.43805557, y: 0.23171273}
-      - {x: -0.4448911, y: 0.22562611}
-      - {x: -1.0890471, y: 0.21326679}
-      - {x: -1.1190472, y: 0.2139383}
-      - {x: -1.1484846, y: 0.1904537}
-      - {x: -1.175, y: 0.19}
-      - {x: -1.185, y: 0.11}
-      - {x: -1.185, y: -0.24}
-      - {x: -1.2455626, y: -0.24774955}
-      - {x: -1.2720779, y: -0.27246824}
-      - {x: -1.265, y: -0.39}
-      - {x: -1.245, y: -0.39999998}
-      - {x: -1.1691589, y: -0.39136612}
-      - {x: -1.1632415, y: -0.45824105}
-      - {x: -1.0939732, y: -0.46696913}
-      - {x: -1.0970968, y: -0.27014348}
-      - {x: -1.0454395, y: -0.16773227}
-      - {x: -0.92803675, y: -0.087539196}
-      - {x: -0.7371519, y: -0.08521464}
-      - {x: -0.60075897, y: -0.14615119}
-      - {x: -0.5341707, y: -0.27780205}
-      - {x: -0.5027076, y: -0.3900669}
-      - {x: -0.50899804, y: -0.4832629}
-      - {x: -0.52312946, y: -0.51437056}
-      - {x: 0.4913503, y: -0.50327003}
-      - {x: 0.4867125, y: -0.3979854}
-      - {x: 0.5420605, y: -0.22700807}
-      - {x: 0.65420526, y: -0.11620626}
-    - - {x: 0.32435468, y: 0.41350684}
-      - {x: 0.45499998, y: 0.26}
-      - {x: 0.445, y: 0.26999998}
-      - {x: 0.35770413, y: 0.32313976}
-      - {x: 0.46792194, y: 0.5060437}
-      - {x: 0.36657894, y: 0.501325}
-  m_UseDelaunayMesh: 0
+  m_Size: {x: 2.53, y: 0.33}
+  m_Direction: 1
 --- !u!1 &4789722117630633315
 GameObject:
   m_ObjectHideFlags: 0

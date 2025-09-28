@@ -24,10 +24,12 @@ public class CarControllerWithParticles : MonoBehaviour
     [Header("Particles")]
     [SerializeField] private ParticleSystem frontTireDust;
     [SerializeField] private ParticleSystem backTireDust;
-    [SerializeField] private float slipThreshold = 50f; // when to trigger dust
+    [SerializeField] private float slipThreshold = 20f; // when to trigger dust
 
     [Header("Ground Check")]
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float wheelRadius = 0.26f; // in meters
+    [SerializeField] private float slipFactor = 1.2f; // how much
 
     private float moveInput;
     private bool isBraking;
@@ -73,8 +75,9 @@ public class CarControllerWithParticles : MonoBehaviour
             Debug.Log("Angular Velocities: " + frontWheelRB.angularVelocity + ", " + backWheelRB.angularVelocity);
             LimitForwardAngularVelocity();
         }
-    }
 
+
+    }
     private void HandleTilt()
     {
         // mid-air rotation
@@ -125,27 +128,47 @@ public class CarControllerWithParticles : MonoBehaviour
     }
     private void HandleTireDust()
     {
-        // Check slip conditions
-        bool frontSlip = isGroundedFront && Mathf.Abs(frontWheelRB.angularVelocity) > slipThreshold;
-        bool backSlip = isGroundedBack && Mathf.Abs(backWheelRB.angularVelocity) > slipThreshold;
 
+        // Check slip conditions
+        // bool frontSlip = isGroundedFront && Mathf.Abs(frontWheelRB.angularVelocity) > slipThreshold;
+        // bool backSlip = isGroundedBack && Mathf.Abs(backWheelRB.angularVelocity) > slipThreshold;
+        float frontRadPerSec = frontWheelRB.angularVelocity * Mathf.Deg2Rad;
+        float backRadPerSec = backWheelRB.angularVelocity * Mathf.Deg2Rad;
+
+        float frontWheelSpeed = frontRadPerSec * wheelRadius;
+        float backWheelSpeed = backRadPerSec * wheelRadius;
+
+        float carSpeed = carBody.linearVelocity.x;
+
+        Debug.Log($"carSpeed : {carSpeed} frontWheelSpeed: {frontWheelSpeed} backWheelSpeed: {backWheelSpeed}");
+
+        bool frontSlip = isGroundedFront && Mathf.Abs(frontWheelSpeed) > Mathf.Abs(carSpeed) * slipFactor;
+        bool backSlip = isGroundedBack && Mathf.Abs(backWheelSpeed) > Mathf.Abs(carSpeed) * slipFactor;
         if (frontSlip)
         {
-            if (!frontTireDust.isPlaying) frontTireDust.Play();
+            frontTireDust.Play();
         }
         else
         {
-            if (frontTireDust.isPlaying) frontTireDust.Stop();
+            frontTireDust.Stop();
         }
 
         if (backSlip)
         {
-            if (!backTireDust.isPlaying) backTireDust.Play();
+            backTireDust.Play();
         }
         else
         {
-            if (backTireDust.isPlaying) backTireDust.Stop();
+            backTireDust.Stop();
         }
+        if (frontSlip || backSlip)
+            SetDustPosition();
+    }
+    Vector3 tireSizeOffset = new Vector3(0.05f, -0.266f, 0);
+    void SetDustPosition()
+    {
+        frontTireDust.transform.position = frontWheelRB.transform.position + tireSizeOffset;
+        backTireDust.transform.position = backWheelRB.transform.position + tireSizeOffset;
     }
 
     private void ApplySuspension(WheelJoint2D joint)
