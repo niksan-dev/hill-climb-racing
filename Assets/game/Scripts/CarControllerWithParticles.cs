@@ -54,6 +54,7 @@ public class CarControllerWithParticles : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 80;
         CacheWheelJoints();
         ApplySuspension(frontWheelJoint);
         ApplySuspension(backWheelJoint);
@@ -104,9 +105,9 @@ public class CarControllerWithParticles : MonoBehaviour
     private void HandleDrive()
     {
         if (isBraking || (!isGroundedFront && !isGroundedBack)) return;
-        Debug.Log("========DRIVE========");
+        //Debug.Log("========DRIVE========");
         ApplyTorqueToWheels(-moveInput * engineTorque);
-        ApplyTorqueToCar(-moveInput * engineTorque);
+        ApplyTorqueToCar(-moveInput * engineTorque * 1.2f);
         ClampWheelAngularVelocity(MaxForwardAngularVelocity);
     }
 
@@ -114,7 +115,7 @@ public class CarControllerWithParticles : MonoBehaviour
     {
         if (isGroundedFront || isGroundedBack || isBraking || Mathf.Abs(moveInput) <= 0) return;
         // Negative sign controls which direction gas tilts
-        Debug.Log("========TILT========");
+        //Debug.Log("========TILT========");
         ApplyTorqueToWheels(-moveInput * engineTorque);
         ApplyTorqueToCar(moveInput * tiltTorque);
     }
@@ -142,7 +143,7 @@ public class CarControllerWithParticles : MonoBehaviour
     {
         if (!isBraking) return;
 
-        Debug.Log("========BRAKE========");
+        // Debug.Log("========BRAKE========");
         if (frontWheelRB.angularVelocity < 0)
         {
             // ApplyTorqueToWheels(brakeTorque);
