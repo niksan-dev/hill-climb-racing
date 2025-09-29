@@ -112,7 +112,7 @@ public class CarControllerWithParticles : MonoBehaviour
 
     private void HandleTilt()
     {
-        if (isGroundedFront || isGroundedBack) return;
+        if (isGroundedFront || isGroundedBack || isBraking || Mathf.Abs(moveInput) <= 0) return;
         // Negative sign controls which direction gas tilts
         Debug.Log("========TILT========");
         ApplyTorqueToWheels(-moveInput * engineTorque);
@@ -145,15 +145,16 @@ public class CarControllerWithParticles : MonoBehaviour
         Debug.Log("========BRAKE========");
         if (frontWheelRB.angularVelocity < 0)
         {
-            ApplyTorqueToWheels(brakeTorque);
-            ApplyTorqueToCar(brakeTorque);
+            // ApplyTorqueToWheels(brakeTorque);
+            ApplyTorqueToCar(engineTorque);
         }
         else
         {
             ApplyTorqueToWheels(brakeTorque * 0.3f);
+            ClampWheelAngularVelocity(MaxBrakingAngularVelocity);
         }
 
-        ClampWheelAngularVelocity(MaxBrakingAngularVelocity);
+
     }
 
     #endregion
