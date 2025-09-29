@@ -115,6 +115,7 @@ public class CarControllerWithParticles : MonoBehaviour
         if (isGroundedFront || isGroundedBack) return;
         // Negative sign controls which direction gas tilts
         Debug.Log("========TILT========");
+        ApplyTorqueToWheels(-moveInput * engineTorque);
         ApplyTorqueToCar(moveInput * tiltTorque);
     }
 
