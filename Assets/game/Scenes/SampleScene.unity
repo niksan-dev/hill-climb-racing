@@ -15187,7 +15187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3560741679225562447, guid: dd20cd20d8a406f42b2e5376238d0577, type: 3}
       propertyPath: tiltTorque
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 3560741679225562447, guid: dd20cd20d8a406f42b2e5376238d0577, type: 3}
       propertyPath: brakeTorque
@@ -15205,6 +15205,14 @@ PrefabInstance:
       propertyPath: inputController
       value: 
       objectReference: {fileID: 1731650387}
+    - target: {fileID: 3560741679225562447, guid: dd20cd20d8a406f42b2e5376238d0577, type: 3}
+      propertyPath: MaxBrakingAngularVelocity
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560741679225562447, guid: dd20cd20d8a406f42b2e5376238d0577, type: 3}
+      propertyPath: MaxForwardAngularVelocity
+      value: 3241
+      objectReference: {fileID: 0}
     - target: {fileID: 4022539562116902332, guid: dd20cd20d8a406f42b2e5376238d0577, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

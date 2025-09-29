@@ -44,9 +44,9 @@ public class CarControllerWithParticles : MonoBehaviour
 
     private readonly Vector3 tireSizeOffset = new Vector3(0.05f, -0.266f, 0);
     [Range(700, 1000)]
-    private const float MaxBrakingAngularVelocity = 700f;
+    [SerializeField] float MaxBrakingAngularVelocity = 700f;
     [Range(2500, 4000)]
-    private const float MaxForwardAngularVelocity = 3200f;
+    [SerializeField] float MaxForwardAngularVelocity = 3200f;
 
     #endregion
 
