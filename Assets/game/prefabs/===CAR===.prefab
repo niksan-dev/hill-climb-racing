@@ -184,8 +184,8 @@ MonoBehaviour:
   frontTireDust: {fileID: 0}
   backTireDust: {fileID: 0}
   engineTorque: 200
-  brakeTorque: 150
-  tiltTorque: 200
+  brakeTorque: 200
+  tiltTorque: 800
   suspensionFrequency: 3
   suspensionDamping: 0.5
   slipThreshold: 50
@@ -194,6 +194,8 @@ MonoBehaviour:
     m_Bits: 8
   wheelRadius: 0.26
   slipFactor: 1.2
+  MaxBrakingAngularVelocity: 700
+  MaxForwardAngularVelocity: 2500
 --- !u!50 &3153714775195563304
 Rigidbody2D:
   serializedVersion: 5
@@ -710,6 +712,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5691857837412086135}
   - component: {fileID: 7667131938438267750}
+  - component: {fileID: 4855066809361232371}
   - component: {fileID: 1630653442295830208}
   - component: {fileID: 6450562342988204387}
   - component: {fileID: 2349177293661212424}
@@ -790,6 +793,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4855066809361232371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755440443127468696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba53b1fe2cc46be47b34307b11ef581f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carScreenshot: {fileID: 0}
 --- !u!58 &1630653442295830208
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -877,5 +893,5 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: -50
-    m_UpperAngle: 50
+    m_LowerAngle: -40
+    m_UpperAngle: 40
