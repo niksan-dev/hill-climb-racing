@@ -43,9 +43,10 @@ public class CarControllerWithParticles : MonoBehaviour
     private bool isGroundedBack;
 
     private readonly Vector3 tireSizeOffset = new Vector3(0.05f, -0.266f, 0);
-
+    [Range(700, 1000)]
     private const float MaxBrakingAngularVelocity = 700f;
-    private const float MaxForwardAngularVelocity = 2500f;
+    [Range(2500, 4000)]
+    private const float MaxForwardAngularVelocity = 3200f;
 
     #endregion
 
@@ -102,8 +103,8 @@ public class CarControllerWithParticles : MonoBehaviour
 
     private void HandleDrive()
     {
-        if (isBraking && !isGroundedFront && !isGroundedBack) return;
-
+        if (isBraking || (!isGroundedFront && !isGroundedBack)) return;
+        Debug.Log("========DRIVE========");
         ApplyTorqueToWheels(-moveInput * engineTorque);
         ApplyTorqueToCar(-moveInput * engineTorque);
         ClampWheelAngularVelocity(MaxForwardAngularVelocity);
@@ -113,6 +114,7 @@ public class CarControllerWithParticles : MonoBehaviour
     {
         if (isGroundedFront || isGroundedBack) return;
         // Negative sign controls which direction gas tilts
+        Debug.Log("========TILT========");
         ApplyTorqueToCar(moveInput * tiltTorque);
     }
 
@@ -138,6 +140,8 @@ public class CarControllerWithParticles : MonoBehaviour
     private void HandleBrakes()
     {
         if (!isBraking) return;
+
+        Debug.Log("========BRAKE========");
         if (frontWheelRB.angularVelocity < 0)
         {
             ApplyTorqueToWheels(brakeTorque);
