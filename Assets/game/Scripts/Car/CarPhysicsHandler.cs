@@ -38,7 +38,7 @@ namespace Game.Car
             if (IsGrounded(suspension.BackWheel) && !IsGrounded(suspension.FrontWheel) && Mathf.Abs(input._moveInput) > 0.01f)
             {
                 float flipTorque = input._moveInput * config.accelerationTorque * Time.fixedDeltaTime;
-                suspension.CarBody.AddTorque(flipTorque, ForceMode2D.Force);
+                suspension.CarBody.AddTorque(flipTorque * 0.8f, ForceMode2D.Force);
             }
         }
 

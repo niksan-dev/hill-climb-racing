@@ -7,7 +7,7 @@ public class EnvironmentGenerator : MonoBehaviour
     [SerializeField] private SpriteShapeController spriteShapeController;
     [SerializeField, Range(3, 500)] private int _levelLength = 50;
     [SerializeField, Range(1f, 10f)] private float _xMultiplier = 2f;
-    [SerializeField, Range(1f, 10f)] private float _yMultiplier = 2f;
+    [SerializeField, Range(1f, 20f)] private float _yMultiplier = 2f;
     [SerializeField, Range(0f, 1f)] private float _smoothness = 0.5f;
     [SerializeField] private float _noiseSteps = 0.5f;
     [SerializeField] private float _bottom = 10;
@@ -21,14 +21,23 @@ public class EnvironmentGenerator : MonoBehaviour
 
     void GenerateEnvironment()
     {
+
         spriteShapeController.spline.Clear();
-        _yMultiplier = 0;
+        // _yMultiplier = 0;
+        // _xMultiplier = 10;
         for (int i = 0; i < _levelLength; i++)
         {
-            if (i % 5 == 0)
-                _yMultiplier += 0.5f;
-            if (i % 10 == 0)
-                _yMultiplier += 0.3f;
+
+            // if (i % 10 == 0)
+            // {
+            //     _yMultiplier += 0.1f;
+            // }
+            // if (i % 5 == 0)
+            // {
+            //     _xMultiplier -= 1;
+
+            //     _xMultiplier = Mathf.Clamp(_xMultiplier, 2f, 3f);
+            // }
             _lastPos = transform.position + new Vector3(i * _xMultiplier, Mathf.PerlinNoise(0, i * _noiseSteps) * _yMultiplier, 0);
             spriteShapeController.spline.InsertPointAt(i, _lastPos);
 
