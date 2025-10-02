@@ -40,7 +40,7 @@ public class CarCenteredScreenshot : MonoBehaviour
         screenshot.Apply();
         _screenshot = screenshot;
         // Save as PNG
-        string path = Path.Combine(Application.dataPath, saveFileName);
+        string path = Path.Combine(Application.persistentDataPath, saveFileName);
         File.WriteAllBytes(path, screenshot.EncodeToPNG());
         Debug.Log("Screenshot saved to: " + path);
 
