@@ -14,7 +14,7 @@ public class HeadCollisionDetection : MonoBehaviour
         {
             hasCollided = true;
             StartCoroutine(DelayTillScreenshot());
-            Debug.Log("Head collided with an obstacle!");
+            Debug.Log("========Head collided with an obstacle!===========");
             // You can add more logic here, like reducing health or playing a sound
         }
     }

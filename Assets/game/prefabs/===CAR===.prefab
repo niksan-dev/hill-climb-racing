@@ -125,6 +125,37 @@ CapsuleCollider2D:
   m_Offset: {x: -0.14, y: 0}
   m_Size: {x: 0.18, y: 0.46}
   m_Direction: 0
+--- !u!1 &3626538586670229755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 720422536951331652}
+  m_Layer: 0
+  m_Name: endPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &720422536951331652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3626538586670229755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.998, y: 1.491, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4022539562116902332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4204735542313684498
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4022539562116902332}
-  - component: {fileID: 3560741679225562447}
+  - component: {fileID: 1899041437602072271}
   - component: {fileID: 3153714775195563304}
   - component: {fileID: 6997658238606491240}
   - component: {fileID: 5296413244367341605}
@@ -163,9 +194,12 @@ Transform:
   - {fileID: 491577816092480652}
   - {fileID: 5691857837412086135}
   - {fileID: 6919157168399053966}
+  - {fileID: 2912276796299997810}
+  - {fileID: 720422536951331652}
+  - {fileID: 739008967909365738}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3560741679225562447
+--- !u!114 &1899041437602072271
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,28 +208,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 4204735542313684498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226e946b5d362a548bdf12c8c4222cd6, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ea09c4ec1843524f9aa24aaaaf5293d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputController: {fileID: 0}
   carBody: {fileID: 3153714775195563304}
   frontWheelRB: {fileID: 4045792554979945446}
   backWheelRB: {fileID: 4468233363059066692}
-  frontTireDust: {fileID: 0}
-  backTireDust: {fileID: 0}
-  engineTorque: 200
-  brakeTorque: 200
-  tiltTorque: 800
-  suspensionFrequency: 3
-  suspensionDamping: 0.5
-  slipThreshold: 50
+  frontWheelJoint: {fileID: 0}
+  backWheelJoint: {fileID: 0}
+  accelerationTorque: 10
+  brakeTorque: 20
+  maxAngularVelocity: 1500
+  airTiltTorque: 15
+  suspensionFrequency: 4
+  suspensionDamping: 0.55
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  wheelRadius: 0.26
-  slipFactor: 1.2
-  MaxBrakingAngularVelocity: 700
-  MaxForwardAngularVelocity: 2500
 --- !u!50 &3153714775195563304
 Rigidbody2D:
   serializedVersion: 5
@@ -208,10 +237,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -398,6 +427,65 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 2.53, y: 0.33}
   m_Direction: 1
+--- !u!1 &4356417398396964304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2912276796299997810}
+  - component: {fileID: 8009377956099481641}
+  m_Layer: 0
+  m_Name: ropeStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2912276796299997810
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4356417398396964304}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.998, y: 0.271, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4022539562116902332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &8009377956099481641
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4356417398396964304}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4789722117630633315
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,10 +623,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.8
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.8
   m_Material: {fileID: 6200000, guid: 9c2afab2d08a9564cb52831a420b29a2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -687,10 +775,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.8
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.8
   m_Material: {fileID: 6200000, guid: 9c2afab2d08a9564cb52831a420b29a2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -895,3 +983,34 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: -40
     m_UpperAngle: 40
+--- !u!1 &7602173503431744382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 739008967909365738}
+  m_Layer: 0
+  m_Name: ropeParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &739008967909365738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602173503431744382}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4022539562116902332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
