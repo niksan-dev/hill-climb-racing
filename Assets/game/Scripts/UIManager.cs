@@ -1,11 +1,25 @@
+
 using UnityEngine;
 
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
     [SerializeField] GameObject InGameUI;
     [SerializeField] GameObject GameOverUI;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else    
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void OnEnable()
     {
@@ -29,12 +43,12 @@ public class UIManager : MonoBehaviour
         GameOverUI.GetComponent<UIGameOver>()?.SetupGameOverUI(e);
     }
 
-    void SetInGameUI(bool state)
+    internal void SetInGameUI(bool state)
     {
         InGameUI.SetActive(state);
     }
 
-    void SetGameOverUI(bool state)
+    internal void SetGameOverUI(bool state)
     {
         GameOverUI.SetActive(state);
     }

@@ -13,6 +13,7 @@ public class HeadCollisionDetection : MonoBehaviour
         if (collision.gameObject.CompareTag("ground"))
         {
             hasCollided = true;
+            UIManager.Instance.SetInGameUI(false);
             StartCoroutine(DelayTillScreenshot());
             Debug.Log("========Head collided with an obstacle!===========");
             // You can add more logic here, like reducing health or playing a sound

@@ -19,9 +19,9 @@ namespace Game.Car
             groundLayer = LayerMask.GetMask("Ground");
         }
 
-        public void HandleDrive(CarInputHandler input)
+        public void HandleDrive(InputController input)
         {
-            if (input.IsBraking)
+            if (input.brakePressed)
                 ApplyBrake();
             else
                 ApplyAcceleration(input);
@@ -29,15 +29,15 @@ namespace Game.Car
             ClampWheelAngularVelocity();
         }
 
-        private void ApplyAcceleration(CarInputHandler input)
+        private void ApplyAcceleration(InputController input)
         {
-            float torque = -input.Horizontal * config.accelerationTorque * Time.fixedDeltaTime;
+            float torque = -input._moveInput * config.accelerationTorque * Time.fixedDeltaTime;
             suspension.FrontWheel.AddTorque(torque, ForceMode2D.Force);
             suspension.BackWheel.AddTorque(torque, ForceMode2D.Force);
 
-            if (IsGrounded(suspension.BackWheel) && !IsGrounded(suspension.FrontWheel) && Mathf.Abs(input.Horizontal) > 0.01f)
+            if (IsGrounded(suspension.BackWheel) && !IsGrounded(suspension.FrontWheel) && Mathf.Abs(input._moveInput) > 0.01f)
             {
-                float flipTorque = input.Horizontal * config.accelerationTorque * Time.fixedDeltaTime;
+                float flipTorque = input._moveInput * config.accelerationTorque * Time.fixedDeltaTime;
                 suspension.CarBody.AddTorque(flipTorque, ForceMode2D.Force);
             }
         }
@@ -58,12 +58,12 @@ namespace Game.Car
             }
         }
 
-        public void HandleTilt(CarInputHandler input)
+        public void HandleTilt(InputController input)
         {
             bool inAir = !IsGrounded(suspension.FrontWheel) && !IsGrounded(suspension.BackWheel);
-            if (inAir && !input.IsBraking)
+            if (inAir && !input.brakePressed)
             {
-                float tilt = input.Horizontal * config.airTiltTorque * Time.fixedDeltaTime;
+                float tilt = input._moveInput * config.airTiltTorque * Time.fixedDeltaTime;
                 suspension.CarBody.AddTorque(tilt, ForceMode2D.Force);
             }
         }

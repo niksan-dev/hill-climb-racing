@@ -165,7 +165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4022539562116902332}
-  - component: {fileID: 1899041437602072271}
+  - component: {fileID: 5429552826203676533}
   - component: {fileID: 3153714775195563304}
   - component: {fileID: 6997658238606491240}
   - component: {fileID: 5296413244367341605}
@@ -199,7 +199,7 @@ Transform:
   - {fileID: 739008967909365738}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1899041437602072271
+--- !u!114 &5429552826203676533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,23 +208,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4204735542313684498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ea09c4ec1843524f9aa24aaaaf5293d, type: 3}
+  m_Script: {fileID: 11500000, guid: e173613ceef8a0f4ea029875685039b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carBody: {fileID: 3153714775195563304}
-  frontWheelRB: {fileID: 4045792554979945446}
-  backWheelRB: {fileID: 4468233363059066692}
-  frontWheelJoint: {fileID: 0}
-  backWheelJoint: {fileID: 0}
-  accelerationTorque: 10
-  brakeTorque: 20
-  maxAngularVelocity: 1500
-  airTiltTorque: 15
-  suspensionFrequency: 4
-  suspensionDamping: 0.55
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  carConfig: {fileID: 11400000, guid: a282cc0af64672e45a0e385b0800a1c9, type: 2}
 --- !u!50 &3153714775195563304
 Rigidbody2D:
   serializedVersion: 5

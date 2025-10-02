@@ -35,7 +35,7 @@ public class UIGameOver : MonoBehaviour
     {
         // Restart the game or reload the scene
         Debug.Log("Restart button clicked!");
-
+        this.gameObject.SetActive(false);
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 }

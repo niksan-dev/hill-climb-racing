@@ -3,18 +3,19 @@ using UnityEngine;
 namespace Game.Car
 {
     [RequireComponent(typeof(Rigidbody2D))]
+    [DisallowMultipleComponent]
     public class HillClimbCarController : MonoBehaviour
     {
         [Header("Configuration")]
         [SerializeField] private CarConfig carConfig;
 
-        private CarInputHandler inputHandler;
+        [SerializeField] private InputController inputHandler;
         private CarSuspensionHandler suspensionHandler;
         private CarPhysicsHandler physicsHandler;
 
         private void Awake()
         {
-            inputHandler = new CarInputHandler();
+            //inputHandler = new CarInputHandler();
             suspensionHandler = new CarSuspensionHandler(carConfig);
             physicsHandler = new CarPhysicsHandler(carConfig);
 
