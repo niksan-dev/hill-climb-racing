@@ -15328,6 +15328,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 45438712}
     - target: {fileID: 5429552826203676533, guid: dd20cd20d8a406f42b2e5376238d0577, type: 3}
+      propertyPath: carConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 40fe09939936a564594a3415e3c6316c, type: 2}
+    - target: {fileID: 5429552826203676533, guid: dd20cd20d8a406f42b2e5376238d0577, type: 3}
       propertyPath: inputHandler
       value: 
       objectReference: {fileID: 2133102298}
