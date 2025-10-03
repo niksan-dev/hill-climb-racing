@@ -15,44 +15,77 @@ MonoBehaviour:
   accelerationTorque:
     baseValue: 450
     upgradeStep: 15
-    level: 3
+    level: 2
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   brakeTorque:
     baseValue: 450
-    upgradeStep: 10
+    upgradeStep: 15
     level: 1
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   maxAngularVelocity:
-    baseValue: 1
-    upgradeStep: 0.1
-    level: 0
+    baseValue: 1500
+    upgradeStep: 100
+    level: 2
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   airTiltTorque:
-    baseValue: 1
-    upgradeStep: 0.1
-    level: 0
+    baseValue: 450
+    upgradeStep: 15
+    level: 1
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   suspensionFrequency:
-    baseValue: 1
-    upgradeStep: 0.1
-    level: 0
+    baseValue: 4
+    upgradeStep: 0.2
+    level: 1
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   suspensionDamping:
-    baseValue: 1
-    upgradeStep: 0.1
-    level: 0
+    baseValue: 0.5
+    upgradeStep: 0.05
+    level: 1
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   tireGrip:
     baseValue: 1
     upgradeStep: 0.1
     level: 0
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   powerDistribution:
     baseValue: 1
     upgradeStep: 0.1
     level: 0
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   groundLinearDamping:
-    baseValue: 1
+    baseValue: 1.2
     upgradeStep: 0.1
     level: 0
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   airLinearDamping:
-    baseValue: 1
-    upgradeStep: 0.1
+    baseValue: 0.2
+    upgradeStep: 0.01
     level: 0
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10
   angularDamping:
-    baseValue: 1
+    baseValue: 1.5
     upgradeStep: 0.1
     level: 0
+    baseCost: 100
+    costStep: 50
+    maxLevel: 10

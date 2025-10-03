@@ -16,7 +16,7 @@ namespace Game.Car
         public void Initialize(CarSuspensionHandler suspensionHandler)
         {
             suspension = suspensionHandler;
-            groundLayer = LayerMask.GetMask("Ground");
+            groundLayer = LayerMask.GetMask("ground");
         }
 
         public void HandleDrive(InputController input)
@@ -32,12 +32,16 @@ namespace Game.Car
         private void ApplyAcceleration(InputController input)
         {
             float torque = -input._moveInput * config.accelerationTorque * Time.fixedDeltaTime;
+
+            Debug.Log("torque : " + torque);
             suspension.FrontWheel.AddTorque(torque, ForceMode2D.Force);
             suspension.BackWheel.AddTorque(torque, ForceMode2D.Force);
 
             if (IsGrounded(suspension.BackWheel) && !IsGrounded(suspension.FrontWheel) && Mathf.Abs(input._moveInput) > 0.01f)
             {
                 float flipTorque = input._moveInput * config.accelerationTorque * Time.fixedDeltaTime;
+
+                Debug.Log("flipTorque: " + flipTorque);
                 suspension.CarBody.AddTorque(flipTorque * 0.8f, ForceMode2D.Force);
             }
         }
