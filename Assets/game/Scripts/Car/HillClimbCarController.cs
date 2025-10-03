@@ -7,7 +7,7 @@ namespace Game.Car
     public class HillClimbCarController : MonoBehaviour
     {
         [Header("Configuration")]
-        [SerializeField] private CarConfig carConfig;
+        [SerializeField] private CarConfigStats carConfig;
 
         [SerializeField] private InputController inputHandler;
         private CarSuspensionHandler suspensionHandler;

@@ -5,7 +5,7 @@ namespace Game.Car
 {
     public class CarSuspensionHandler
     {
-        private readonly CarConfig config;
+        private readonly CarConfigStats config;
 
         public Rigidbody2D CarBody { get; private set; }
         public Rigidbody2D FrontWheel { get; private set; }
@@ -13,7 +13,7 @@ namespace Game.Car
         public WheelJoint2D FrontJoint { get; private set; }
         public WheelJoint2D BackJoint { get; private set; }
 
-        public CarSuspensionHandler(CarConfig config)
+        public CarSuspensionHandler(CarConfigStats config)
         {
             this.config = config;
         }
@@ -33,8 +33,8 @@ namespace Game.Car
 
         public void ConfigureSuspension()
         {
-            SetSuspension(FrontJoint, config.suspensionFrequency, config.suspensionDamping);
-            SetSuspension(BackJoint, config.suspensionFrequency, config.suspensionDamping);
+            SetSuspension(FrontJoint, config.suspensionFrequency.Value, config.suspensionDamping.Value);
+            SetSuspension(BackJoint, config.suspensionFrequency.Value, config.suspensionDamping.Value);
         }
 
         private void SetSuspension(WheelJoint2D wheel, float frequency, float damping)
