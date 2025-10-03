@@ -12,6 +12,26 @@ public class InputController : MonoBehaviour
     // Internally convert to one axis:
     internal float _moveInput;
     float uiAxis = 0f;
+
+    void OnEnable()
+    {
+        ResetValues();
+    }
+
+    void OnDisable()
+    {
+        ResetValues();
+    }
+
+    void ResetValues()
+    {
+        gasInput = 0;
+        brakeInput = 0;
+        _moveInput = 0;
+        uiAxis = 0;
+        gasPressed = false;
+        brakePressed = false;
+    }
     internal void ReadInput()
     {
         // Combine UI input with keyboard fallback
