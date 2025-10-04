@@ -16,14 +16,15 @@ public class InputController : MonoBehaviour
     void OnEnable()
     {
         ResetValues();
+
     }
 
     void OnDisable()
     {
-        ResetValues();
+
     }
 
-    void ResetValues()
+    internal void ResetValues()
     {
         gasInput = 0;
         brakeInput = 0;

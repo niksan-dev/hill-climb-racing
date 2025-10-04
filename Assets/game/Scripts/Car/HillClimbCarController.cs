@@ -9,6 +9,8 @@ namespace Game.Car
         [Header("Configuration")]
         [SerializeField] private CarConfigStats carConfig;
 
+        [SerializeField] private RectTransform rpmNeedleTransform;
+        [SerializeField] private RectTransform boostNeedleTransform;
         [SerializeField] private InputController inputHandler;
         private CarSuspensionHandler suspensionHandler;
         private CarPhysicsHandler physicsHandler;
@@ -21,7 +23,7 @@ namespace Game.Car
 
             suspensionHandler.CacheWheelJoints(gameObject);
             suspensionHandler.ConfigureSuspension();
-            physicsHandler.Initialize(suspensionHandler);
+            physicsHandler.Initialize(suspensionHandler, rpmNeedleTransform, boostNeedleTransform);
         }
 
         private void Update()
@@ -34,6 +36,24 @@ namespace Game.Car
             physicsHandler.HandleDrive(inputHandler);
             physicsHandler.HandleTilt(inputHandler);
             physicsHandler.ApplyDrag();
+        }
+
+        void OnEnable()
+        {
+            EventBus.Subscribe<HeadCollidedEvent>(e =>
+            {
+                physicsHandler.ResetValues();
+                inputHandler.ResetValues();
+            });
+        }
+
+        void OnDisable()
+        {
+            EventBus.Unsubscribe<HeadCollidedEvent>(e =>
+            {
+                physicsHandler.ResetValues();
+                inputHandler.ResetValues();
+            });
         }
     }
 }

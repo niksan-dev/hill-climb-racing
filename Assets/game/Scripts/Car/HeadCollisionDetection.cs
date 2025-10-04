@@ -12,6 +12,7 @@ public class HeadCollisionDetection : MonoBehaviour
         if (hasCollided) return;
         if (collision.gameObject.CompareTag("ground"))
         {
+            EventBus.Publish(new HeadCollidedEvent());
             hasCollided = true;
             UIManager.Instance.SetInGameUI(false);
             StartCoroutine(DelayTillScreenshot());

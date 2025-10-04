@@ -6,6 +6,8 @@ namespace Game.Car
     {
         private readonly CarConfigStats config;
         private CarSuspensionHandler suspension;
+        private RPMMeter rPMMeter = new RPMMeter();
+        private BoostMeter boostMeter = new BoostMeter();
         private LayerMask groundLayer;
 
         public CarPhysicsHandler(CarConfigStats config)
@@ -13,10 +15,12 @@ namespace Game.Car
             this.config = config;
         }
 
-        public void Initialize(CarSuspensionHandler suspensionHandler)
+        public void Initialize(CarSuspensionHandler suspensionHandler, RectTransform rpmNeedleTransform, RectTransform boostNeedleTransform)
         {
             suspension = suspensionHandler;
             groundLayer = LayerMask.GetMask("ground");
+            rPMMeter.Initialize(config.maxAngularVelocity.Value, rpmNeedleTransform);
+            boostMeter.Initialize(config.maxAngularVelocity.Value, boostNeedleTransform);
         }
 
         public void HandleDrive(InputController input)
@@ -27,6 +31,14 @@ namespace Game.Car
                 ApplyAcceleration(input);
 
             ClampWheelAngularVelocity();
+        }
+
+        internal void ResetValues()
+        {
+            suspension.CarBody.linearVelocity = Vector2.zero;
+            suspension.CarBody.angularVelocity = 0f;
+            suspension.FrontWheel.angularVelocity = 0f;
+            suspension.BackWheel.angularVelocity = 0f;
         }
 
         private void ApplyAcceleration(InputController input)
@@ -44,6 +56,9 @@ namespace Game.Car
                 Debug.Log("flipTorque: " + flipTorque);
                 suspension.CarBody.AddTorque(flipTorque * 0.8f, ForceMode2D.Force);
             }
+
+            rPMMeter.UpdateNeedle(Mathf.Abs(suspension.BackWheel.angularVelocity * input._moveInput) * 10f);
+            boostMeter.UpdateNeedle(Mathf.Abs(suspension.BackWheel.angularVelocity * input._moveInput) * 3);
         }
 
         private void ApplyBrake()
@@ -60,6 +75,8 @@ namespace Game.Car
                 float torque = config.brakeTorque.Value * Time.fixedDeltaTime;
                 suspension.BackWheel.AddTorque(torque, ForceMode2D.Force);
             }
+
+            // rPMMeter.UpdateNeedle(Mathf.Abs(suspension.BackWheel.angularVelocity * input._moveInput) * 10f);
         }
 
         public void HandleTilt(InputController input)
@@ -70,6 +87,7 @@ namespace Game.Car
                 float tilt = input._moveInput * config.airTiltTorque.Value * Time.fixedDeltaTime;
                 suspension.CarBody.AddTorque(tilt, ForceMode2D.Force);
             }
+            // rPMMeter.UpdateNeedle(Mathf.Abs(suspension.BackWheel.angularVelocity) * 10f);
         }
 
         public void ApplyDrag()

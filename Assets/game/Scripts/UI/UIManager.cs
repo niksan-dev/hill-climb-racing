@@ -7,10 +7,21 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     [SerializeField] GameObject InGameUI;
     [SerializeField] GameObject GameOverUI;
-
+    [SerializeField] Canvas mainCanvas;
+    [SerializeField] RectTransform coinHudIcon;
     private void Awake()
     {
         Instance = this;
+    }
+
+    internal RectTransform GetCoinIconTransform()
+    {
+        return coinHudIcon;
+    }
+
+    internal Canvas GetMainCanvas()
+    {
+        return mainCanvas;
     }
 
     void OnEnable()
@@ -58,4 +69,10 @@ public struct GameOverEvent
         if (screenshot == null) return null;
         return Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
     }
+}
+
+
+public struct HeadCollidedEvent
+{
+
 }

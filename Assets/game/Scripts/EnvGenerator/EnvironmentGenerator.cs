@@ -23,21 +23,12 @@ public class EnvironmentGenerator : MonoBehaviour
     {
 
         spriteShapeController.spline.Clear();
-        // _yMultiplier = 0;
-        // _xMultiplier = 10;
+        _yMultiplier = 3;
+        //_xMultiplier = 10;
         for (int i = 0; i < _levelLength; i++)
         {
-
-            // if (i % 10 == 0)
-            // {
-            //     _yMultiplier += 0.1f;
-            // }
-            // if (i % 5 == 0)
-            // {
-            //     _xMultiplier -= 1;
-
-            //     _xMultiplier = Mathf.Clamp(_xMultiplier, 2f, 3f);
-            // }
+            if (i % 5 == 0)
+                _yMultiplier += 0.1f;
             _lastPos = transform.position + new Vector3(i * _xMultiplier, Mathf.PerlinNoise(0, i * _noiseSteps) * _yMultiplier, 0);
             spriteShapeController.spline.InsertPointAt(i, _lastPos);
 

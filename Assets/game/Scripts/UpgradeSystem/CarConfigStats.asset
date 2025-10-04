@@ -27,7 +27,7 @@ MonoBehaviour:
     costStep: 50
     maxLevel: 10
   maxAngularVelocity:
-    baseValue: 1500
+    baseValue: 1000
     upgradeStep: 100
     level: 2
     baseCost: 100
