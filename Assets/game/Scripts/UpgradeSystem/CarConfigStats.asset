@@ -41,14 +41,14 @@ MonoBehaviour:
     costStep: 50
     maxLevel: 10
   suspensionFrequency:
-    baseValue: 3
+    baseValue: 2
     upgradeStep: 0.2
     level: 0
     baseCost: 100
     costStep: 50
     maxLevel: 10
   suspensionDamping:
-    baseValue: 0.25
+    baseValue: 0.2
     upgradeStep: 0.05
     level: 1
     baseCost: 100

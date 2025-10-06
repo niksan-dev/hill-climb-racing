@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject GameOverUI;
     [SerializeField] Canvas mainCanvas;
     [SerializeField] RectTransform coinHudIcon;
+    [SerializeField] RectTransform gemHudIcon;
+    [SerializeField] RectTransform fuelHudIcon;
     private void Awake()
     {
         Instance = this;
@@ -17,6 +19,16 @@ public class UIManager : MonoBehaviour
     internal RectTransform GetCoinIconTransform()
     {
         return coinHudIcon;
+    }
+
+    internal RectTransform GetFuelIconTransform()
+    {
+        return fuelHudIcon;
+    }
+
+    internal RectTransform GetGemIconTransform()
+    {
+        return gemHudIcon;
     }
 
     internal Canvas GetMainCanvas()

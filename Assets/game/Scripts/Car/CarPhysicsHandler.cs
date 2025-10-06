@@ -45,7 +45,7 @@ namespace Game.Car
         {
             float torque = -input._moveInput * config.accelerationTorque.Value * Time.fixedDeltaTime;
 
-            Debug.Log("torque : " + torque);
+            //Debug.Log("torque : " + torque);
             suspension.FrontWheel.AddTorque(torque, ForceMode2D.Force);
             suspension.BackWheel.AddTorque(torque, ForceMode2D.Force);
 
@@ -53,7 +53,7 @@ namespace Game.Car
             {
                 float flipTorque = input._moveInput * config.accelerationTorque.Value * Time.fixedDeltaTime;
 
-                Debug.Log("flipTorque: " + flipTorque);
+                // Debug.Log("flipTorque: " + flipTorque);
                 suspension.CarBody.AddTorque(flipTorque * 0.8f, ForceMode2D.Force);
             }
 

@@ -16,8 +16,17 @@ public class EnvironmentGenerator : MonoBehaviour
     private void OnValidate()
     {
         // spriteShapeController.spline.Clear();
+        //GenerateEnvironment();
+    }
+
+
+    [ContextMenuItem("Generate Environment", "FUNC_GenerateEnvironment")]
+    public int health = 100;
+    public void FUNC_GenerateEnvironment()
+    {
         GenerateEnvironment();
     }
+
 
     void GenerateEnvironment()
     {
@@ -28,7 +37,7 @@ public class EnvironmentGenerator : MonoBehaviour
         for (int i = 0; i < _levelLength; i++)
         {
             if (i % 5 == 0)
-                _yMultiplier += 0.1f;
+                _yMultiplier += 0.2f;
             _lastPos = transform.position + new Vector3(i * _xMultiplier, Mathf.PerlinNoise(0, i * _noiseSteps) * _yMultiplier, 0);
             spriteShapeController.spline.InsertPointAt(i, _lastPos);
 

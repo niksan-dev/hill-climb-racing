@@ -7,6 +7,8 @@ public class CoinsGenerator : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteShapeController terrainShape;
     [SerializeField] private GameObject[] coinPrefabs;
+    public GameObject fuelPrefab;
+    public GameObject gemPrefab;
     [SerializeField] private Transform coinParent;
 
     [Header("Settings")]
@@ -18,6 +20,13 @@ public class CoinsGenerator : MonoBehaviour
     [SerializeField] private int minCluster = 3;        // min coins in a cluster
     [SerializeField] private int maxCluster = 7;
     [SerializeField] private float stackOffset = 1.2f; // vertical spacing for stacked coins
+    public float fuelSpawnInterval = 50f;   // distance between fuel tanks
+    public float gemSpawnInterval = 35f;   // distance between fuel tanks
+    private float lastFuelX = 0f;
+
+    private float lastGemX = 0;
+    private List<Vector3> occupiedPositions = new List<Vector3>();
+
     private void Start()
     {
         // SpawnCoins();
@@ -34,12 +43,13 @@ public class CoinsGenerator : MonoBehaviour
         {
             DestroyImmediate(coinParent.GetChild(i).gameObject);
         }
-        SpawnCoins();
+        occupiedPositions.Clear();
+        lastFuelX = 0f;
+        lastGemX = 0;
+        SpawnCoinsAndFuel();
     }
 
-
-
-    private void SpawnCoins()
+    private void SpawnCoinsAndFuel()
     {
         if (terrainShape == null || coinPrefabs.Length == 0) return;
 
@@ -49,28 +59,26 @@ public class CoinsGenerator : MonoBehaviour
         for (int i = 0; i < pointCount - 1; i++)
         {
             Vector3 start = spline.GetPosition(i);
-
-            if (start.x < initialXValue)
-                continue;
+            if (start.x < initialXValue) continue;
 
             Vector3 end = spline.GetPosition(i + 1);
-
             Vector3 direction = end - start;
             float slopeAngle = Vector2.Angle(Vector2.right, direction.normalized);
 
-            // ✅ Only upper/gentle slopes
+            // ✅ Only gentle slopes
             if (slopeAngle <= maxSlopeAngle)
             {
                 float distance = Vector2.Distance(start, end);
                 int coinSlots = Mathf.FloorToInt(distance / spacing);
 
                 int index = 0;
+
                 while (index < coinSlots)
                 {
-                    // 🎲 Roll dice to decide if a cluster should spawn
                     if (Random.value < spawnChance)
                     {
                         int clusterSize = Random.Range(minCluster, maxCluster + 1);
+
 
                         for (int j = 0; j < clusterSize && index < coinSlots; j++)
                         {
@@ -79,24 +87,50 @@ public class CoinsGenerator : MonoBehaviour
                             pos.x -= 3f;
                             pos.y += heightOffset;
 
-                            // 🎲 Decide: normal coin OR stack
-                            float roll = Random.value;
-
-                            if (roll < 0.15f) // 15% chance → stack
+                            // --- FUEL CHECK ---
+                            if (pos.x - lastFuelX >= fuelSpawnInterval)
                             {
-                                // Bottom: 5 coin
-                                GameObject c5 = Instantiate(coinPrefabs[0], pos, Quaternion.identity, coinParent);
-
-                                // Middle: 25 coin
-                                GameObject c25_0 = Instantiate(coinPrefabs[1], pos + Vector3.up * stackOffset, Quaternion.identity, coinParent);
-                                GameObject c25_1 = Instantiate(coinPrefabs[1], pos + Vector3.up * stackOffset, Quaternion.identity, coinParent);
-                                // Top: 50 coin
-                                GameObject c50 = Instantiate(coinPrefabs[2], pos + Vector3.up * stackOffset * 2f, Quaternion.identity, coinParent);
+                                Vector3 fuelPos = pos;
+                                if (!IsOccupied(fuelPos))
+                                {
+                                    GameObject fuel = Instantiate(fuelPrefab, fuelPos, Quaternion.identity, coinParent);
+                                    occupiedPositions.Add(fuel.transform.position);
+                                    lastFuelX = pos.x;
+                                }
                             }
-                            else
+                            else if (pos.x - lastGemX >= gemSpawnInterval)
                             {
-                                // Just a single 5 coin
-                                Instantiate(coinPrefabs[0], pos, Quaternion.identity, coinParent);
+                                Vector3 gemPos = pos;
+                                if (!IsOccupied(gemPos))
+                                {
+                                    GameObject gem = Instantiate(gemPrefab, gemPos, Quaternion.identity, coinParent);
+                                    occupiedPositions.Add(gem.transform.position);
+                                    lastGemX = pos.x;
+                                }
+                            }
+
+                            // --- COINS ---
+                            if (!IsOccupied(pos))
+                            {
+                                float roll = Random.value;
+                                if (roll < 0.15f) // 15% chance → stack
+                                {
+                                    GameObject c5 = Instantiate(coinPrefabs[0], pos, Quaternion.identity, coinParent);
+                                    occupiedPositions.Add(c5.transform.position);
+
+                                    GameObject c25 = Instantiate(coinPrefabs[1], pos + Vector3.up * stackOffset, Quaternion.identity, coinParent);
+                                    occupiedPositions.Add(c25.transform.position);
+
+                                    GameObject c50 = Instantiate(coinPrefabs[2], pos + Vector3.up * stackOffset * 2f, Quaternion.identity, coinParent);
+                                    occupiedPositions.Add(c50.transform.position);
+                                }
+                                else
+                                {
+
+                                    GameObject coin = Instantiate(coinPrefabs[0], pos, Quaternion.identity, coinParent);
+                                    occupiedPositions.Add(coin.transform.position);
+
+                                }
                             }
                         }
 
@@ -110,5 +144,15 @@ public class CoinsGenerator : MonoBehaviour
                 }
             }
         }
+    }
+
+    private bool IsOccupied(Vector3 pos)
+    {
+        foreach (Vector3 p in occupiedPositions)
+        {
+            if (Vector2.Distance(p, pos) < 0.7f) // 2f = min spacing between coin/fuel
+                return true;
+        }
+        return false;
     }
 }
