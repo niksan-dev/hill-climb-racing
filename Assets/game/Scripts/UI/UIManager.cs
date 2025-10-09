@@ -40,15 +40,15 @@ public class UIManager : MonoBehaviour
     {
         SetInGameUI(true);
         SetGameOverUI(false);
-        EventBus.Subscribe<GameOverEvent>(OnGameOver);
+        EventBus.Subscribe<EventGameOver>(OnGameOver);
     }
 
     void OnDisable()
     {
-        EventBus.Unsubscribe<GameOverEvent>(OnGameOver);
+        EventBus.Unsubscribe<EventGameOver>(OnGameOver);
     }
 
-    void OnGameOver(GameOverEvent e)
+    void OnGameOver(EventGameOver e)
     {
         SetInGameUI(false);
         SetGameOverUI(true);
@@ -69,19 +69,6 @@ public class UIManager : MonoBehaviour
     }
 }
 
-public struct GameOverEvent
-{
-    public Texture2D screenshot;
-    public int coinsCollected;
-    public int distanceTraveled;
-
-    public Sprite GetSprite()
-    {
-        Debug.Log("screenshot : " + screenshot);
-        if (screenshot == null) return null;
-        return Sprite.Create(screenshot, new Rect(0, 0, screenshot.width, screenshot.height), new Vector2(0.5f, 0.5f));
-    }
-}
 
 
 public struct HeadCollidedEvent

@@ -32,7 +32,7 @@ public class HeadCollisionDetection : MonoBehaviour
 
         Debug.Log($"carScreenshot  :  {carScreenshot._screenshot}");
         yield return new WaitForSeconds(1);
-        EventBus.Publish(new GameOverEvent
+        EventBus.Publish(new EventGameOver
         {
             screenshot = carScreenshot._screenshot,
             coinsCollected = UnityEngine.Random.Range(500, 1000), // Replace with actual coins collected

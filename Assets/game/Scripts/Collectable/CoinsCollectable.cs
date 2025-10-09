@@ -21,5 +21,12 @@ public class CoinCollectable : CollectableBase
         uiRect.position = transform.position; //Camera.main.WorldToScreenPoint(transform.position);
 
         uiCoin.GetComponent<UICoinFly>().StartFly(targetIcon, value);
+
+
+        EventBus.Publish(new EventItemCollected()
+        {
+            value = this.value,
+            item = HUDItem.COIN
+        });
     }
 }

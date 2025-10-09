@@ -19,7 +19,7 @@ public abstract class CollectableBase : MonoBehaviour, ICollectable
 
         if (collision.CompareTag("player") || collision.CompareTag("car") || collision.CompareTag("tire"))
         {
-            Debug.Log("Collectable Triggered by " + this.gameObject.name);
+            // Debug.Log("Collectable Triggered by " + this.gameObject.name);
             Collect(collision.gameObject);
         }
     }

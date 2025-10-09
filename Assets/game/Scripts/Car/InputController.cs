@@ -1,9 +1,7 @@
 using UnityEngine;
 public class InputController : MonoBehaviour
 {
-    // UI Input values
-    [HideInInspector] public float gasInput;    // +1 when pressed
-    [HideInInspector] public float brakeInput;  // +1 when pressed
+
 
     // Or you can use bools:
     public bool gasPressed;
@@ -26,8 +24,6 @@ public class InputController : MonoBehaviour
 
     internal void ResetValues()
     {
-        gasInput = 0;
-        brakeInput = 0;
         _moveInput = 0;
         uiAxis = 0;
         gasPressed = false;

@@ -25,5 +25,11 @@ public class FuelCollectable : CollectableBase
         uiRect.position = transform.position; //Camera.main.WorldToScreenPoint(transform.position);
 
         uiCoin.GetComponent<UICoinFly>().StartFly(targetIcon, value);
+
+        EventBus.Publish(new EventItemCollected()
+        {
+            value = 1,
+            item = HUDItem.FUEL
+        });
     }
 }

@@ -8,7 +8,7 @@ public class UIGameOver : MonoBehaviour
     [SerializeField] Text textDistance;
     [SerializeField] Button buttonRestart;
 
-    internal void SetupGameOverUI(GameOverEvent e)
+    internal void SetupGameOverUI(EventGameOver e)
     {
         if (imageScreenshot != null)
         {

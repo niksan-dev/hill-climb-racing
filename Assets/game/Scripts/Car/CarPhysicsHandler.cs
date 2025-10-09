@@ -53,12 +53,20 @@ namespace Game.Car
             {
                 float flipTorque = input._moveInput * config.accelerationTorque.Value * Time.fixedDeltaTime;
 
-                // Debug.Log("flipTorque: " + flipTorque);
-                suspension.CarBody.AddTorque(flipTorque * 0.8f, ForceMode2D.Force);
+                // Debug.Log("flipTorque:============== " + flipTorque);
+                suspension.CarBody.AddTorque(flipTorque * 0.5f, ForceMode2D.Force);
             }
 
             rPMMeter.UpdateNeedle(Mathf.Abs(suspension.BackWheel.angularVelocity * input._moveInput) * 10f);
             boostMeter.UpdateNeedle(Mathf.Abs(suspension.BackWheel.angularVelocity * input._moveInput) * 3);
+            if (IsGrounded(suspension.BackWheel) && !IsGrounded(suspension.FrontWheel) && Mathf.Abs(input._moveInput) < 0.01f)
+            {
+                float flipTorque = config.accelerationTorque.Value * Time.fixedDeltaTime;
+
+                // Debug.Log("flipTorque:============== " + flipTorque);
+                suspension.CarBody.AddTorque(-flipTorque * 0.1f, ForceMode2D.Force);
+            }
+
         }
 
         private void ApplyBrake()
